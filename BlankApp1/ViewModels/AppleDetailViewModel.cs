@@ -77,13 +77,10 @@ namespace BlankApp1.ViewModels
             this.SaveEnabled = true;
             this.EditEnabled = false;
         }
-        void GoBack()
+        private void GoBack()
         {
-            GoBack(false);
-        }
-        private void GoBack(bool refresh)
-        {
-            this._regionManager.RequestNavigate("RegionOne", nameof(Views.AppleList));
+            NavigationParameters p = new NavigationParameters() { { "refresh", true } };
+            this._regionManager.RequestNavigate("RegionOne", nameof(Views.AppleList), p);
         }
         #endregion
         #region Navigation related functions

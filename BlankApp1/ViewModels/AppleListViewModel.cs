@@ -69,6 +69,14 @@ namespace BlankApp1.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            if (navigationContext.Parameters.ContainsKey("refresh") &&
+                navigationContext.Parameters.GetValue<bool>("refresh"))
+            {
+                this.SelectedApple = null;
+                this.MyAppleList.Clear();
+                this.MyAppleList.AddRange(this._appleService.GetApples());
+                System.Console.WriteLine("Navigation will only succeed the second time this method is called");
+            }
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
