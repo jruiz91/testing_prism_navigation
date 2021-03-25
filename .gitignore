@@ -1,0 +1,6 @@
+*.user
+.vs
+/packages/
+/BlankApp1/bin/Debug/
+/BlankApp1/bin/Release/
+/BlankApp1/obj/

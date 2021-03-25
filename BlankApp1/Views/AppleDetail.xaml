@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="BlankApp1.Views.AppleDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:fa="http://schemas.fontawesome.io/icons/">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Background="Gray">
+            <Label>Apple Description</Label>
+            <Button Command="{Binding EditCommand}" Visibility="{Binding PencilVisibility}" Background="Gray" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Edit" Height="15" Foreground="Blue"/>
+            </Button>
+            <Button Command="{Binding SaveCommand}" Background="Gray" BorderBrush="Transparent">
+                <fa:ImageAwesome Icon="Save" Height="15" Foreground="Blue"/>
+            </Button>
+        </StackPanel>
+        <Label Grid.Row="1" Grid.Column="0">Name</Label>
+        <TextBox x:Name="name" Text="{Binding CurrentApple.Name}" Grid.Row="1" Grid.Column="1" IsReadOnly="{Binding AppleReadOnlyMode}"/>
+        <Label Grid.Row="2" Grid.Column="0">Colour</Label>
+        <TextBox x:Name="colour" Text="{Binding CurrentApple.Colour}" Grid.Row="2" Grid.Column="1" IsReadOnly="{Binding AppleReadOnlyMode}"/>
+        <Button Command="{Binding ReturnCommand}" Background="Transparent" BorderBrush="Transparent" Grid.Row="3" Grid.Column="1">
+            <fa:ImageAwesome Icon="ArrowLeft" Height="15" Foreground="Blue"/>
+        </Button>
+    </Grid>
+</UserControl>

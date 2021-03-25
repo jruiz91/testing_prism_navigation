@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="BlankApp1.Views.AppleList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:fa="http://schemas.fontawesome.io/icons/">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Command="{Binding AddAppleCommand}"
+            Grid.Column="1">
+            <fa:ImageAwesome Icon="Plus" Height="15" Foreground="Blue"/>
+        </Button>
+        <DataGrid x:Name="ApplesListGrid" AutoGenerateColumns="False" ItemsSource="{Binding MyAppleList}" 
+                  SelectedItem="{Binding SelectedApple}" CanUserAddRows="False" IsManipulationEnabled="False"
+                  Grid.Row="1" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}">
+
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Colour" Binding="{Binding Colour}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <interactivity:Interaction.Triggers>
+                <interactivity:EventTrigger EventName="SelectionChanged">
+                    <prism:InvokeCommandAction Command="{Binding AppleSelectedCommand}" CommandParameter="{Binding ElementName=ApplesListGrid, Path=SelectedItem}"/>
+                </interactivity:EventTrigger>
+            </interactivity:Interaction.Triggers>
+        </DataGrid>
+    </Grid>
+</UserControl>
