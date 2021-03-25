@@ -28,8 +28,6 @@ namespace BlankApp1.ViewModels
         private AppleModel _selectedApple;
         private NotifierObservableCollection<AppleModel> _myAppleList;
         private DelegateCommand _addAppleCommand;
-        public DelegateCommand AddAppleCommand =>
-            _addAppleCommand ?? (_addAppleCommand = new DelegateCommand(AddApple));
         private DelegateCommand<AppleModel> _appleSelectedCommand;
         public AppleModel SelectedApple
         {
@@ -41,6 +39,8 @@ namespace BlankApp1.ViewModels
             get { return _myAppleList; }
             set { SetProperty(ref _myAppleList, value); }
         }
+        public DelegateCommand AddAppleCommand =>
+            _addAppleCommand ?? (_addAppleCommand = new DelegateCommand(AddApple));
         public DelegateCommand<AppleModel> AppleSelectedCommand =>
             _appleSelectedCommand ?? (_appleSelectedCommand = new DelegateCommand<AppleModel>(SelectApple));
 
@@ -60,11 +60,15 @@ namespace BlankApp1.ViewModels
         {
             this._regionManager.RequestNavigate("RegionOne", "AppleDetail");
         }
-        void SelectApple(AppleModel apple)
+        public void SelectApple(AppleModel apple)
         {
-            NavigationParameters p = new NavigationParameters();
-            p.Add("apple", apple);
-            this._regionManager.RequestNavigate("RegionOne", nameof(Views.AppleDetail), p);
+            if (apple != null)
+            {
+                NavigationParameters p = new NavigationParameters();
+                p.Add("apple", apple.Clone());
+                this.SelectedApple = null;
+                this._regionManager.RequestNavigate("RegionOne", nameof(Views.AppleDetail), p);
+            }
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
